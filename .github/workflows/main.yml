@@ -23,7 +23,15 @@ jobs:
       run: |
         cd ./biliMediaUrlFetch
         zip -r ../lambda-function.zip .
-    - uses: actions/upload-artifact@v4
+    - name: Publish Release
+      uses: meeDamian/github-release@2.0
       with:
-        name: lambda-function.zip
-        path: ./lambda-function.zip
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: latest
+        name: LambdaFuncZipBall
+        body: >
+          Used to deploy on AWS Lambda function
+        files: >
+          ./lambda-function.zip
+        allow_override: true
+        gzip: false

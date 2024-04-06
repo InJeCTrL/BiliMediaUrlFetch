@@ -6,9 +6,9 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
+    permissions:
+      contents: write
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python
@@ -23,15 +23,10 @@ jobs:
       run: |
         cd ./biliMediaUrlFetch
         zip -r ../lambda-function.zip .
-    - name: Publish Release
-      uses: meeDamian/github-release@2.0
+    - uses: ncipollo/release-action@v1
       with:
-        token: ${{ secrets.GITHUB_TOKEN }}
         tag: Zipball
         name: LambdaFuncZipBall
-        body: >
-          Used to deploy on AWS Lambda function
-        files: >
-          ./lambda-function.zip
-        allow_override: true
-        gzip: false
+        artifacts: "lambda-function.zip"
+        allowUpdates: true
+        body: "Used to deploy on AWS Lambda function"

@@ -43,3 +43,10 @@
     测试多分片稿件的视频音频获取：(bvid=BV1sV411Z7Cn)
 
     ![test_multiple_pages](./docs/test_multiple_pages.png)
+
+6. 获取媒体资源
+
+    ```shell
+    # 使用FFmpeg的同时带上含UA和Referer的请求头
+    ffprobe -headers $'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:124.0) Gecko/20100101 Firefox/124.0\r\nReferer: https://www.bilibili.com/\r\n' -i "<url you get>"
+    ```

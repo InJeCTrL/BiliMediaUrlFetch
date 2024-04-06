@@ -1,0 +1,27 @@
+name: Release Zip Ball
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
+    - name: Install dependencies
+      run: python -m pip install -r requirements.txt --target ./biliMediaUrlFetch
+    - uses: montudor/action-zip@v1
+      with:
+        args: zip -r ../lambda-function.zip .
+        working-directory: ./biliMediaUrlFetch
+    - uses: actions/upload-artifact@v4
+      with:
+        name: lambda-function.zip
+        path: ./lambda-function.zip
